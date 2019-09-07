@@ -5,8 +5,6 @@
 using System;
 using System.Collections.Generic;
 
-using Algorithms.Sorting;
-
 namespace Algorithms.Strings
 {
     public static class Permutations
@@ -14,7 +12,6 @@ namespace Algorithms.Strings
         /// <summary>
         /// Private Helper. Computes permutations recursively for string source.
         /// </summary>
-        /// <param name="s">S.</param>
         private static HashSet<string> _permutations(string source)
         {
             var perms = new HashSet<string>();
@@ -58,9 +55,9 @@ namespace Algorithms.Strings
         /// <summary>
         /// Computes the permutations of a string.
         /// </summary>
-        public static HashSet<string> ComputeDistinct(string Source)
+        public static HashSet<string> ComputeDistinct(string source)
         {
-            return _permutations(Source);
+            return _permutations(source);
         }
 
         /// <summary>
@@ -70,23 +67,25 @@ namespace Algorithms.Strings
         {
             if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(other))
                 return false;
-            else if (source.Length != other.Length)
+            if (source.Length != other.Length)
                 return false;
-            else if (source.Equals(other, StringComparison.Ordinal))
+            if (source.Equals(other, StringComparison.Ordinal))
                 return true;
 
             int len = source.Length;
-            // Hash set which will contains all the characters present in input souce.
+            // Hash set which will contains all the characters present in input source.
             var hashSetSourceChars = new HashSet<char>();
+            var hashSetOtherChars = new HashSet<char>();
             for (int i = 0; i < len; i++)
             {
                 hashSetSourceChars.Add(source[i]);
+                hashSetOtherChars.Add(other[i]);
             }
             for (int i = 0; i < len; i++)
             {
                 // Inputs are not Anargram if characers from *other are not present in *source.
                 if (!hashSetSourceChars.Contains(other[i])) return false;
-                //if (!hashSetOther.Contains(source[i])) return false;
+                if (!hashSetOtherChars.Contains(source[i])) return false;
             }
             return true;
         }
